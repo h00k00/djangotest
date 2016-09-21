@@ -5,6 +5,21 @@ from django.views import generic
 
 from .models import Choice, Question
 
+class ReactTest(generic.View):
+    def get(self, request):
+        data = [
+          {"id": 1, "author": "Pete Hunt", "text": "This is one comment"},
+          {"id": 2, "author": "Jordan Walke", "text": "This is *another* comment"}
+        ]
+        return HttpResponse(json.dumps(data))
+
+class IndexPageView(generic.TemplateView):
+    def get_context_data(self, request=None, **kwargs):
+        return context
+
+    def get(self, request):
+        context = self.get_context_data(request)
+        return TemplateResponse(request, template="polls/test.html", context=context)
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
